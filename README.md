@@ -54,7 +54,7 @@ git remote add origin GIT-SERVER-URL-TO-PUSH-TO
 ```bash
 cd ~/mirror2git/git/somerepo1
 git remote add upstream2 ANOTHERGITURL
-git checkout somebranch upstream2/master
+git branch somebranch upstream2/master
 ```
 
 
@@ -75,7 +75,18 @@ cd ~/mirror2git/svn/somerepo2
 git remote add origin GIT-SERVER-URL-TO-PUSH-TO
 ```
 
-Note: It is unknown how this interacts with the `git-svn clone -s` option.
+3*) Possibly add more repositories to pull information from:
+```bash
+cd ~/mirror2git/git/somerepo1
+git remote add upstream2 ANOTHERGITURL
+git branch somebranch upstream2/master
+```
+
+Notes:
+
+- It is unknown if this works in case `git-svn clone -s` option is used.
+- The SVN branch always is on "master"
+- Multiple different SVN branches are unsupported.  There is no plan to support this.
 
 
 License
