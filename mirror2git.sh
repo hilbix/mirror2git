@@ -28,6 +28,29 @@ ret=$?
 return $ret
 }
 
+noerr()
+{
+errorflag=false
+}
+noerr
+
+err()
+{
+errortext="$errortext $?:$*"
+errorflag=:
+}
+
+tellerr()
+{
+$errorflag
+}
+
+showerr()
+{
+tellerr && return
+echo "ERROR: $errortext"
+}
+
 run()
 {
 source ./"mirror-$1.inc" || return
@@ -38,11 +61,16 @@ do
 	[ -e "$a/.git" ] || continue
 
 	stamp "start $a"
-	( cd "$a" && "auto$1" "$a"; )
-	stamp "ret=$? $a"
+	( noerr; cd "$a" && "auto$1" "$a" && tellerr; )
+	res=$?
+	stamp "ret=$res $a"
+	[ 0 = $res ] || tellerr "$a"
 done
 stamp end
+tellerr
 }
+
+exec 3>&2
 
 for v in [a-z]*
 do
@@ -51,7 +79,8 @@ do
 	(
 	out "mirror-$v.sh start"
 	run "$v"
-	out "mirror-$v.sh ret=$?"
+	out "mirror-$v.sh ret=$?$errortext"
+	showerr "$v" >&3	# put into cron output
 	) >> "LOG/mirror-$v.log" 2>&1
 done
 
