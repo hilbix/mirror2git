@@ -66,7 +66,7 @@ You need `git-svn` module.  It is part of Debian etc., see `apt-get install git-
 1) Prepare the repo:
 ```bash
 cd ~/mirror2git/svn/
-git svn clone [--stdlayout] SVNURL [somerepo2]
+git svn clone [--stdlayout] --username=pub SVNURL [somerepo2]
 ```
 
 2) Add the GIT server to mirror to.  This is your server or, perhaps, GitHub:

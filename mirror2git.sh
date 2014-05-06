@@ -83,4 +83,5 @@ do
 	showerr "$v" >&3	# put into cron output
 	) >> "LOG/mirror-$v.log" 2>&1
 done
+out finish 2>/dev/null
 
