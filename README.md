@@ -66,7 +66,7 @@ You need `git-svn` module.  It is part of Debian etc., see `apt-get install git-
 1) Prepare the repo:
 ```bash
 cd ~/mirror2git/svn/
-git svn clone [--stdlayout] http://svn.synergy-foss.org/ SVNURL [somerepo2]
+git svn clone [--stdlayout] SVNURL [somerepo2]
 ```
 
 2) Add the GIT server to mirror to.  This is your server or, perhaps, GitHub:
@@ -87,6 +87,23 @@ Notes:
 - It is unknown if this works in case `git-svn clone -s` option is used.
 - The SVN branch always is on "master"
 - Multiple different SVN branches are unsupported.  There is no plan to support this.
+
+
+CVS:
+----
+
+> **CVS IS NOT READY YET!**
+
+You need the `git-cvs` module.  It is part of Debian etc., see `apt-get install git-cvs`
+
+1) Prepare the repo
+```bash
+cd ~/mirror2git/cvs
+cvs -d :pserver:anonymous@CVSHOST:/cvsroot/CVSREPO login
+
+git cvsimport -d :pserver:anonymous@CVSHOST:/cvsroot/CVSREPO -A CVSREPO.authors -C CVSREPO -r cvs -k CVSREPO
+```
+
 
 
 License
