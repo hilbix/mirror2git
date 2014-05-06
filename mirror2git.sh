@@ -42,7 +42,7 @@ errorflag=:
 
 tellerr()
 {
-$errorflag
+! $errorflag
 }
 
 showerr()
