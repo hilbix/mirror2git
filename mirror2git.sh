@@ -28,9 +28,15 @@ ret=$?
 return $ret
 }
 
+e()
+{
+x "$@" || err "$*"
+}
+
 noerr()
 {
 errorflag=false
+errortext=
 }
 noerr
 
@@ -51,10 +57,24 @@ tellerr && return
 echo "ERROR: $errortext"
 }
 
+# Inform my monitoring:
+# monitor timeout status service subservice text
+monitor()
+{
+ok="$2"
+case "$2" in
+OK|WARN|ERR)	;;
+0)		ok=OK;;
+*)		ok=ERR;;	# TODO: degrade first time error into warning
+esac
+echo "$ok ${5:-$ok}" >> "/tmp/poststat.ok.${1:-3600}.$3.$4"
+}
+
 run()
 {
 source ./"mirror-$1.inc" || return
 HERE="`readlink -e "$1"`" || return
+repos=
 for a in "$HERE"/*
 do
         [ -d "$a" ] || continue
@@ -64,9 +84,13 @@ do
 	( noerr; cd "$a" && "auto$1" "$a" && tellerr; )
 	res=$?
 	stamp "ret=$res $a"
-	[ 0 = $res ] || tellerr "$a"
+	[ 0 = $res ] || err "$a"
+	repos="$repos $res:${a##*/}"
 done
-stamp end
+tellerr
+stamp end $?
+tellerr
+monitor 99999 "$?" mirror "$1" "$repos"
 tellerr
 }
 
