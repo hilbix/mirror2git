@@ -87,6 +87,7 @@ Notes:
 - It is unknown if this works in case `git-svn clone -s` option is used.
 - The SVN branch always is on "master"
 - Multiple different SVN branches are unsupported.  There is no plan to support this.
+- If you ever need to change the SVN URL, see https://git.wiki.kernel.org/index.php/GitSvnSwitch
 
 
 CVS:
