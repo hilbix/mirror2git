@@ -121,7 +121,8 @@ If you happen to add a suitable script for another VCS, please send me a pull re
 
 - Where is CVS?  There is a git-cvs module, but it is a bit heuristic.  So tracking a CVS repository is not always straight forward.  Perhaps when the need arises it will be added.
 
-- Where is BZR?  There is no standard git-bzr module yet.  Perhaps it can be done with bzr-git, but that might be difficult even for standard cases.
+- Where is `hg`/Mercurial or `bzr`/Bazaar?  There is a solution for integrating both into `git`, see http://permalink.de/tino/git-hg
+  This will be added if the need arises at my side or I have the mood to do so.
 
-- Where is HG or other not mentioned VCSses?  Not looked into that, yet, sorry.
+- Where are other not mentioned VCSses?  Not looked into that, yet, sorry.
 
