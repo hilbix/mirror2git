@@ -30,7 +30,7 @@ return $ret
 
 e()
 {
-x "$@" || err "$*"
+x "$@" || { sleep 60; x "$@"; } || err "$*"
 }
 
 noerr()
